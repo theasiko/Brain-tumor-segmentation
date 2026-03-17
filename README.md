@@ -1,3 +1,55 @@
+## Project structure
+
+```text
+brain_tumor_segmentation_project/
+├── README.md
+├── requirements.txt
+├── train.py
+├── evaluate.py
+├── visualize.py
+└── src/
+    ├── __init__.py
+    ├── config.py
+    ├── data.py
+    ├── losses.py
+    ├── metrics.py
+    ├── model.py
+    ├── train_utils.py
+    └── viz.py
+```
+
+## Setup
+
+```bash
+pip install -r requirements.txt
+```
+
+## Train
+
+```bash
+python train.py --epochs 10 --batch-size 8 --img-size 128
+```
+
+Model weights will be saved to `checkpoints/best_model.pt`.
+
+## Evaluate
+
+```bash
+python evaluate.py --checkpoint checkpoints/best_model.pt
+```
+
+## Visualize predictions
+
+```bash
+python visualize.py --checkpoint checkpoints/best_model.pt --split test --indices 3 15 40
+```
+
+## Notes
+- Images are converted to grayscale.
+- CLAHE preprocessing is applied before resizing.
+- Masks are built from polygon segmentations.
+- Training uses BCEWithLogitsLoss + Dice loss.
+
 1. Введение
 
 Анализ медицинских изображений является одной из ключевых задач современных интеллектуальных систем в здравоохранении. Магнитно-резонансная томография (МРТ) широко используется для диагностики заболеваний головного мозга, включая опухолевые образования. Однако интерпретация МРТ-снимков требует высокой квалификации врача-радиолога и значительных временных затрат.
